@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/l4t-base:r32.4.3
+FROM nvcr.io/nvidia/l4t-base:r32.4.4
 RUN apt-get update; apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential pkg-config  libtbb2 libtbb-dev  libavcodec-dev libavformat-dev libswscale-dev libxvidcore-dev libavresample-dev libtiff-dev libjpeg-dev libpng-dev python-tk libgtk-3-dev libcanberra-gtk-module libcanberra-gtk3-module libv4l-dev libdc1394-22-dev cmake python3-dev python-dev python-numpy python3-numpy ccache
 ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda-10.2/targets/aarch64-linux/lib
