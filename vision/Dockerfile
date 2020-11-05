@@ -1,7 +1,0 @@
-FROM nvcr.io/nvidia/l4t-base:r32.4.4
-RUN apt-get update; apt-get -y upgrade
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential pkg-config  libtbb2 libtbb-dev  libavcodec-dev libavformat-dev libswscale-dev libxvidcore-dev libavresample-dev libtiff-dev libjpeg-dev libpng-dev python-tk libgtk-3-dev libcanberra-gtk-module libcanberra-gtk3-module libv4l-dev libdc1394-22-dev cmake python3-dev python-dev python-numpy python3-numpy ccache
-ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda-10.2/targets/aarch64-linux/lib
-RUN mkdir /src; wget -O /src/opencv-3.4.0.tar.gz https://github.com/opencv/opencv/archive/3.4.0.tar.gz; wget -O /src/opencv_contrib-3.4.0.tar.gz https://github.com/opencv/opencv_contrib/archive/3.4.0.tar.gz; cd /src/; tar xzf opencv-3.4.0.tar.gz; tar xzf opencv_contrib-3.4.0.tar.gz; ls -l /src/; rm -f /src/*gz
-RUN cd /src/opencv-3.4.0; ls -l /src/opencv_contrib-3.4.0/modules; mkdir build; cd build;  env; cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX:PATH=/opt/opencv/3.4.0 -D WITH_CUDA=ON -D CUDA_ARCH_PTX="" -D CUDA_ARCH_BIN="5.3,6.2,7.2" -D WITH_CUBLAS=ON -D WITH_LIBV4L=ON -D BUILD_opencv_python3=ON -D BUILD_opencv_python2=ON -D BUILD_opencv_java=OFF -D WITH_GSTREAMER=ON -D WITH_GTK=ON -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_EXAMPLES=OFF -D OPENCV_ENABLE_NONFREE=ON -D OPENCV_EXTRA_MODULES_PATH=/src/opencv_contrib-3.4.0/modules ..
-RUN cd /src/opencv-3.4.0/build; make -j4
