@@ -7,4 +7,4 @@ RUN cd /src/opencv-3.4.0/build; make -j4
 RUN rm -fr /src/opencv*
 RUN apt-get -y install git; mkdir -p /vision_ws/src; cd /vision_ws/src; git clone https://github.com/marcostrullato/vision_opencv.git; git clone --recursive https://github.com/marcostrullato/darknet_ros.git
 RUN cd /vision_ws/src/vision_opencv; git checkout melodic; 
-RUN cd /vision_ws; catkin_make -DCMAKE_BUILD_TYPE=Release
+RUN . /opt/ros/melodic/setup.bash; cd /vision_ws; catkin_make -DCMAKE_BUILD_TYPE=Release
