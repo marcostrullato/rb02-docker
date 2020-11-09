@@ -7,4 +7,17 @@ RUN cd /src/opencv-3.4.0/build; make -j4
 RUN rm -fr /src/opencv*
 RUN apt-get -y install git; mkdir -p /vision_ws/src; cd /vision_ws/src; git clone https://github.com/marcostrullato/vision_opencv.git; git clone --recursive https://github.com/marcostrullato/darknet_ros.git
 RUN cd /vision_ws/src/vision_opencv; git checkout melodic; 
+ENV ROS_ETC_DIR=/opt/ros/melodic/etc/ros
+ENV CMAKE_PREFIX_PATH=/opt/ros/melodic
+ENV ROS_ROOT=/opt/ros/melodic/ros
+ENV ROS_MASTER_URI=http://localhost:11311
+ENV ROS_VERSION=1
+ENV ROS_PYTHON_VERSION=2
+ENV PYTHONPATH=/opt/ros/melodic/lib/python2.7/dist-packages
+ENV ROS_PACKAGE_PATH=/opt/ros/melodic/share
+ENV ROSLISP_PACKAGE_DIRECTORIES=
+ENV PATH=/opt/ros/melodic/bin:/usr/local/cuda-10.2/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PKG_CONFIG_PATH=/opt/ros/melodic/lib/pkgconfig
+ENV ROS_DISTRO=melodic
+ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda-10.2/targets/aarch64-linux/lib
 RUN env; which catkin_make; cd /vision_ws; catkin_make -DCMAKE_BUILD_TYPE=Release
