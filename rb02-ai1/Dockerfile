@@ -1,5 +1,37 @@
 FROM ros-melodic-jetson:1.0
 
+# Workspaces
+
+# create_ws/
+# ├── build
+# └── src
+#     └── create_robot
+#         ├── create_bringup
+#         ├── create_description
+#         ├── create_driver
+#         ├── create_msgs
+#         └── create_robot
+
+# kinect_ws/
+# └── src
+#     └── freenect_stack
+#         ├── freenect_camera
+#         ├── freenect_launch
+#         ├── freenect_stack
+#         └── rosinstall
+
+# vision_ws/
+# └── src
+#    ├── darknet_ros
+#    │   ├── darknet
+#    │   ├── darknet_ros
+#    │   └── darknet_ros_msgs
+#    └── vision_opencv
+#        ├── cv_bridge
+#        ├── image_geometry
+#        ├── opencv_tests
+#        └── vision_opencv
+
 #Environment variables
 ENV LD_LIBRARY_PATH=/opt/ros/melodic/lib:/usr/local/cuda-10.2/targets/aarch64-linux/lib:/usr/local/cuda/lib64:/usr/local/cuda-10.2/targets/aarch64-linux/lib
 ENV ROS_ETC_DIR=/opt/ros/melodic/etc/ros
@@ -27,6 +59,7 @@ RUN echo "source /create_ws/devel/setup.bash" >> /root/.bashrc
 #Perception
 RUN mkdir /src; cd /src; git clone https://github.com/OpenKinect/libfreenect.git; cd /src/libfreenect; mkdir build; cd build; cmake -L ..; make; make install
 RUN mkdir -p /kinect_ws/src; cd /kinect_ws/src; git clone https://github.com/ros-drivers/freenect_stack.git; cd .. ; catkin_make
+RUN echo "source /kinect_ws/devel/setup.bash" >> /root/.bashrc
 
 #Vision
 RUN mkdir /src; wget -O /src/opencv-3.4.0.tar.gz https://github.com/opencv/opencv/archive/3.4.0.tar.gz; wget -O /src/opencv_contrib-3.4.0.tar.gz https://github.com/opencv/opencv_contrib/archive/3.4.0.tar.gz; tar xzf opencv-3.4.0.tar.gz; tar xzf opencv_contrib-3.4.0.tar.gz
@@ -34,5 +67,6 @@ RUN cd /src/opencv-3.4.0; mkdir build; cd build; cmake -D CMAKE_BUILD_TYPE=RELEA
 RUN cd /src/opencv-3.4.0/build; make -j4; make install; rm -fr /src
 RUN mkdir -p /vision_ws/src; cd /vision_ws/src; git clone https://github.com/marcostrullato/vision_opencv.git; git clone --recursive https://github.com/marcostrullato/darknet_ros.git
 RUN cd /vision_ws/src/vision_opencv; git checkout melodic; cd /vision_ws; catkin_make -DCMAKE_BUILD_TYPE=Release
+RUN echo "source /vision_ws/devel/setup.bash" >> /root/.bashrc
 
 
