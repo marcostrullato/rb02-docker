@@ -58,7 +58,7 @@ RUN echo "source /create_ws/devel/setup.bash" >> /root/.bashrc
 
 #Perception (at catkin_make sourcing the previous one)
 RUN mkdir /src; cd /src; git clone https://github.com/OpenKinect/libfreenect.git; cd /src/libfreenect; mkdir build; cd build; cmake -L ..; make; make install
-RUN mkdir -p /kinect_ws/src; cd /kinect_ws/src; git clone https://github.com/ros-drivers/freenect_stack.git; cd .. ; source /create_ws/devel/setup.bash; catkin_make
+RUN mkdir -p /kinect_ws/src; cd /kinect_ws/src; git clone https://github.com/ros-drivers/freenect_stack.git; cd .. ; /bin/bash -c "source /create_ws/devel/setup.bash"; catkin_make
 RUN echo "source /kinect_ws/devel/setup.bash" >> /root/.bashrc
 
 #Vision
@@ -66,5 +66,5 @@ RUN mkdir /src; wget -O /src/opencv-3.4.0.tar.gz https://github.com/opencv/openc
 RUN cd /src/opencv-3.4.0; mkdir build; cd build; cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX:PATH=/opt/opencv/3.4.0 -D WITH_CUDA=ON -D CUDA_ARCH_PTX="" -D CUDA_ARCH_BIN="5.3,6.2,7.2" -D WITH_CUBLAS=ON -D WITH_LIBV4L=ON -D BUILD_opencv_python3=ON -D BUILD_opencv_python2=ON -D BUILD_opencv_java=OFF -D WITH_GSTREAMER=ON -D WITH_GTK=ON -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_EXAMPLES=OFF -D OPENCV_ENABLE_NONFREE=ON -DCUDA_CUDA_LIBRARY=/usr/local/cuda-10.2/targets/aarch64-linux/lib/stubs/libcuda.so -D OPENCV_EXTRA_MODULES_PATH=/src/opencv_contrib-3.4.0/modules ..
 RUN cd /src/opencv-3.4.0/build; make -j4; make install; rm -fr /src
 RUN mkdir -p /vision_ws/src; cd /vision_ws/src; git clone https://github.com/marcostrullato/vision_opencv.git; git clone --recursive https://github.com/marcostrullato/darknet_ros.git
-RUN cd /vision_ws/src/vision_opencv; git checkout melodic; cd /vision_ws; source /kinect_ws/devel/setup.bash; catkin_make -DCMAKE_BUILD_TYPE=Release
+RUN cd /vision_ws/src/vision_opencv; git checkout melodic; cd /vision_ws; /bin/bash -c "/kinect_ws/devel/setup.bash"; catkin_make -DCMAKE_BUILD_TYPE=Release
 RUN echo "source /vision_ws/devel/setup.bash" >> /root/.bashrc
