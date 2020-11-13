@@ -1,4 +1,4 @@
-FROM ros-melodic-jetson:1.0
+FROM images.strullato.com:8080/ros-melodic-jetson:1.0
 
 # Workspaces
 
