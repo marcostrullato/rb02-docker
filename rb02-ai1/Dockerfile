@@ -59,6 +59,7 @@ RUN echo "source /create_ws/devel/setup.bash" >> /root/.bashrc
 RUN mkdir /src; cd /src; git clone https://github.com/OpenKinect/libfreenect.git; cd /src/libfreenect; mkdir build; cd build; cmake -L ..; make; make install
 RUN /bin/bash -c ". /opt/ros/melodic/setup.bash; . /create_ws/devel/setup.bash"; mkdir -p /kinect_ws/src; cd /kinect_ws/src; git clone https://github.com/ros-drivers/freenect_stack.git; cd .. ; catkin_make
 COPY freenect_throttle.launch /kinect_ws/src/freenect_stack/freenect_launch/launch/
+RUN usermod -a -G plugdev root; usermod -a -G video root
 RUN echo "source /kinect_ws/devel/setup.bash" >> /root/.bashrc
 
 #Vision
