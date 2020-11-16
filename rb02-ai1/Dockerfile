@@ -69,5 +69,9 @@ RUN cd /src/opencv-3.4.0; mkdir build; cd build; cmake -D CMAKE_BUILD_TYPE=RELEA
 RUN /bin/bash -c ". /opt/ros/melodic/setup.bash; . /create_ws/devel/setup.bash; . /kinect_ws/devel/setup.bash"; mkdir -p /vision_ws/src; cd /vision_ws/src; git clone https://github.com/marcostrullato/vision_opencv.git; git clone --recursive https://github.com/marcostrullato/darknet_ros.git; cd /vision_ws/src/vision_opencv; git checkout melodic; cd /vision_ws; catkin_make -DCMAKE_BUILD_TYPE=Release
 RUN echo "source /vision_ws/devel/setup.bash" >> /root/.bashrc
 
+#Startup node
+RUN mkdir -p /rb02_ws/src; cd /rb02_ws/src; git clone https://github.com/marcostrullato/roomba.git; cd /rb02_ws; /bin/bash -c ". /opt/ros/melodic/setup.bash; . /create_ws/devel/setup.bash; . /kinect_ws/devel/setup.bash; . /vision_ws/devel/setup.bash"; catkin_make
+RUN echo "source /rb02_ws/devel/setup.bash" >> /root/.bashrc
+
 #Cleanup
 RUN rm -fr /src
