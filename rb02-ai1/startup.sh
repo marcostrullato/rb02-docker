@@ -1,7 +1,7 @@
 #!/bin/bash
 screen -d -m roscore
 screen -d -m /bin/bash -c '. /create_ws/devel/setup.bash; roslaunch create_bringup create_2.launch'
-screen -d -m /bin/bash -c '. /kinect_ws/devel/setup.bash; roslaunch freenect_launch freenect_throttle.launch'
+screen -d -m /bin/bash -c '. /kinect_ws/devel/setup.bash; roslaunch freenect_launch freenect.launch'
 screen -d -m /bin/bash -c '. /kinect_ws/devel/setup.bash; roslaunch rtabmap_ros rgbd_mapping.launch rtabmap_args:="--delete_db_on_start --Vis/MaxFeatures 500 --Mem/ImagePreDecimation 2 --Mem/ImagePostDecimation 2 --Kp/DetectorStrategy 6 --OdomF2M/MaxSize 1000 --Odom/ImageDecimation 2" rtabmapviz:=false'
 screen -d -m /bin/bash -c '. /vision_ws/devel/setup.bash; roslaunch darknet_ros darknet_ros.launch'
 screen -d -m /bin/bash -c '. /create_ws/devel/setup.bash; roslaunch create_bringup joy_teleop.launch'
