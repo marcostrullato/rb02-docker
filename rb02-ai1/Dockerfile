@@ -47,7 +47,8 @@ ENV PKG_CONFIG_PATH=/opt/ros/melodic/lib/pkgconfig
 ENV ROS_DISTRO=melodic
 
 #Updates and install required packages
-RUN apt-get update; apt-get -y upgrade
+#RUN apt-get update; apt-get -y upgrade
+RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install ros-melodic-usb-cam ros-melodic-usb-cam ros-melodic-usb-cam libgusb2 libusb-1.0-0 libusb-1.0-0-dev libusbmuxd4 ros-melodic-catkin python-catkin-tools python-rosdep build-essential pkg-config  libtbb2 libtbb-dev  libavcodec-dev libavformat-dev libswscale-dev libxvidcore-dev libavresample-dev libtiff-dev libjpeg-dev libpng-dev python-tk libgtk-3-dev libcanberra-gtk-module libcanberra-gtk3-module libv4l-dev libdc1394-22-dev cmake python3-dev python-dev python-numpy python3-numpy ccache ros-melodic-joy-teleop ros-melodic-teleop-tools-msgs ros-melodic-rtabmap ros-melodic-rtabmap-ros screen ros-melodic-rgbd-launch
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install net-tools iputils-ping
 
@@ -57,8 +58,8 @@ RUN usermod -a -G dialout root
 RUN echo "source /create_ws/devel/setup.bash" >> /root/.bashrc
 
 #Perception (at catkin_make sourcing the previous one)
-RUN mkdir /src; cd /src; git clone https://github.com/OpenKinect/libfreenect.git; cd /src/libfreenect; mkdir build; cd build; cmake -L ..; make; make install
-RUN /bin/bash -c ". /opt/ros/melodic/setup.bash; . /create_ws/devel/setup.bash"; mkdir -p /kinect_ws/src; cd /kinect_ws/src; git clone https://github.com/ros-drivers/freenect_stack.git; git clone https://github.com/ros-perception/depthimage_to_laserscan.git; cd .. ; catkin_make
+RUN mkdir /src; cd /src; git clone https://github.com/marcostrullato/libfreenect.git; cd /src/libfreenect; mkdir build; cd build; cmake -L ..; make; make install
+RUN /bin/bash -c ". /opt/ros/melodic/setup.bash; . /create_ws/devel/setup.bash"; mkdir -p /kinect_ws/src; cd /kinect_ws/src; git clone https://github.com/marcostrullato/freenect_stack.git; git clone https://github.com/marcostrullato/depthimage_to_laserscan.git; cd .. ; catkin_make
 COPY freenect_throttle.launch /kinect_ws/src/freenect_stack/freenect_launch/launch/
 RUN usermod -a -G plugdev root; usermod -a -G video root
 RUN echo "source /kinect_ws/devel/setup.bash" >> /root/.bashrc
