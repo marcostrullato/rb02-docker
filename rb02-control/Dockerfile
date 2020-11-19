@@ -28,7 +28,7 @@ FROM images.strullato.com:8080/ros-amd64:1.0
 
 #Updates and install required packages
 RUN apt-get update;
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python-rosdep python-catkin-tools
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python-rosdep python-catkin-tools ros-melodic-catkin python-catkin-tools python-rosdep build-essential pkg-config ros-melodic-joy-teleop ros-melodic-teleop-tools-msgs
 #RUN DEBIAN_FRONTEND=noninteractive apt-get -y install ros-melodic-usb-cam ros-melodic-usb-cam ros-melodic-usb-cam libgusb2 libusb-1.0-0 libusb-1.0-0-dev libusbmuxd4 ros-melodic-catkin python-catkin-tools python-rosdep build-essential pkg-config  libtbb2 libtbb-dev  libavcodec-dev libavformat-dev libswscale-dev libxvidcore-dev libavresample-dev libtiff-dev libjpeg-dev libpng-dev python-tk libgtk-3-dev libcanberra-gtk-module libcanberra-gtk3-module libv4l-dev libdc1394-22-dev cmake python3-dev python-dev python-numpy python3-numpy ccache ros-melodic-joy-teleop ros-melodic-teleop-tools-msgs ros-melodic-rtabmap ros-melodic-rtabmap-ros screen ros-melodic-rgbd-launch
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install net-tools iputils-ping
 
