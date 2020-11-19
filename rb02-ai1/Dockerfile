@@ -75,3 +75,4 @@ RUN echo "source /rb02_ws/devel/setup.bash" >> /root/.bashrc
 
 #Cleanup
 RUN rm -fr /src
+RUN apt-get -y autoremove
