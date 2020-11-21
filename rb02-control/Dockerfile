@@ -33,7 +33,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python-rosdep python-catki
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install net-tools iputils-ping
 
 #Movement setup
-RUN /bin/bash -c ". /opt/ros/melodic/setup.bash"; mkdir -p /create_ws/src; cd /create_ws; catkin init; cd /create_ws/src; git clone https://github.com/marcostrullato/create_robot.git; cd /create_ws; rosdep update; rosdep install -y --rosdistro melodic --from-paths src -i; catkin build
+RUN /bin/bash -c ". /opt/ros/melodic/setup.bash"; mkdir -p /create_ws/src; cd /create_ws; catkin init; cd /create_ws/src; git clone https://github.com/marcostrullato/create_robot.git; cd /create_ws; rosdep update; rosdep install -y --rosdistro melodic --from-paths src -i; /bin/bash -c ". /opt/ros/melodic/setup.bash; catkin build"
 RUN usermod -a -G dialout root
 RUN echo "source /create_ws/devel/setup.bash" >> /root/.bashrc
 
