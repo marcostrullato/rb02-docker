@@ -30,7 +30,7 @@ FROM images.strullato.com:8080/ros-amd64:1.0
 RUN apt-get update;
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python-rosdep python-catkin-tools ros-melodic-catkin python-catkin-tools python-rosdep build-essential pkg-config ros-melodic-joy-teleop ros-melodic-teleop-tools-msgs
 #RUN DEBIAN_FRONTEND=noninteractive apt-get -y install ros-melodic-usb-cam ros-melodic-usb-cam ros-melodic-usb-cam libgusb2 libusb-1.0-0 libusb-1.0-0-dev libusbmuxd4 ros-melodic-catkin python-catkin-tools python-rosdep build-essential pkg-config  libtbb2 libtbb-dev  libavcodec-dev libavformat-dev libswscale-dev libxvidcore-dev libavresample-dev libtiff-dev libjpeg-dev libpng-dev python-tk libgtk-3-dev libcanberra-gtk-module libcanberra-gtk3-module libv4l-dev libdc1394-22-dev cmake python3-dev python-dev python-numpy python3-numpy ccache ros-melodic-joy-teleop ros-melodic-teleop-tools-msgs ros-melodic-rtabmap ros-melodic-rtabmap-ros screen ros-melodic-rgbd-launch
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install net-tools iputils-ping
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install net-tools iputils-ping screen
 
 #Teloop setup
 RUN /bin/bash -c ". /opt/ros/melodic/setup.bash"; mkdir -p /create_ws/src; cd /create_ws; catkin init; cd /create_ws/src; git clone https://github.com/marcostrullato/create_robot.git; cd /create_ws; rosdep update; rosdep install -y --rosdistro melodic --from-paths src -i; /bin/bash -c ". /opt/ros/melodic/setup.bash; catkin build"
@@ -38,7 +38,10 @@ RUN usermod -a -G dialout root
 RUN echo "source /create_ws/devel/setup.bash" >> /root/.bashrc
 
 #Rviz
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install rviz ros-melodic-cartographer-rviz ros-melodic-distance-map-rviz ros-melodic-fkie-potree-rviz-plugin ros-melodic-grid-map-rviz-plugin ros-melodic-rqt-rviz ros-melodic-rviz ros-melodic-rviz-visual-tools ros-melodic-trajectory-tracker-rviz-plugins ros-melodic-visualization-msgs
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install rviz ros-melodic-cartographer-rviz ros-melodic-distance-map-rviz ros-melodic-fkie-potree-rviz-plugin ros-melodic-grid-map-rviz-plugin ros-melodic-rqt-rviz ros-melodic-rviz ros-melodic-rviz-visual-tools ros-melodic-trajectory-tracker-rviz-plugins ros-melodic-visualization-msgs 
+
+#Setup networking
+RUN echo "192.168.1.15 roomba2.zurich" >> /etc/hosts; echo "192.168.1.115 development.zurich" >> /etc/hosts;
 
 #Cleanup
 RUN apt-get -y autoremove
