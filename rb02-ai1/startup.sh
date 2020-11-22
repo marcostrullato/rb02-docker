@@ -1,4 +1,8 @@
 #!/bin/bash
+
+export ROS_IP=192.168.1.15
+export ROS_MASTER_URI=http://192.168.1.15:11311
+
 screen -d -m roscore
 screen -d -m /bin/bash -c '. /create_ws/devel/setup.bash; roslaunch create_bringup create_2.launch'
 screen -d -m /bin/bash -c '. /kinect_ws/devel/setup.bash; roslaunch freenect_launch freenect.launch'

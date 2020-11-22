@@ -74,6 +74,9 @@ RUN echo "source /vision_ws/devel/setup.bash" >> /root/.bashrc
 RUN mkdir -p /rb02_ws/src; cd /rb02_ws/src; git clone https://github.com/marcostrullato/roomba.git; cd /rb02_ws; /bin/bash -c ". /opt/ros/melodic/setup.bash; . /create_ws/devel/setup.bash; . /kinect_ws/devel/setup.bash; . /vision_ws/devel/setup.bash"; catkin_make
 RUN echo "source /rb02_ws/devel/setup.bash" >> /root/.bashrc
 
+#Setup networking
+RUN echo "192.168.1.15 roomba2.zurich" >> /etc/hosts; echo "192.168.1.115 development.zurich" >> /etc/hosts;
+
 #Cleanup
 RUN rm -fr /src
 RUN apt-get -y autoremove
