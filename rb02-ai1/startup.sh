@@ -13,4 +13,4 @@ screen -d -m /bin/bash -c '. /vision_ws/devel/setup.bash; roslaunch darknet_ros 
 
 screen -d -m /bin/bash -c '. /opt/ros/melodic/setup.bash; . /create_ws/devel/setup.bash --extend; . /kinect_ws/devel/setup.bash --extend; . /vision_ws/devel/setup.bash --extend; . /rb02_ws/devel/setup.bash --extend; roslaunch roomba roomba.launch'
 
-docker run --device=/dev/ttyUSB0 --device /dev/bus/usb:/dev/bus/usb -i -t --entrypoint /bin/bash --network host images.strullato.com:8080/rb02-all-in-one:1.2
+docker run --device=/dev/ttyUSB0 --device /dev/bus/usb:/dev/bus/usb --runtime nvidia -i -t --entrypoint /bin/bash --network host images.strullato.com:8080/rb02-all-in-one:1.2
