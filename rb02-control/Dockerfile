@@ -38,7 +38,7 @@ RUN usermod -a -G dialout root
 RUN echo "source /create_ws/devel/setup.bash" >> /root/.bashrc
 
 #Rviz
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install rviz ros-melodic-cartographer-rviz ros-melodic-distance-map-rviz ros-melodic-fkie-potree-rviz-plugin ros-melodic-grid-map-rviz-plugin ros-melodic-rqt-rviz ros-melodic-rviz ros-melodic-rviz-visual-tools ros-melodic-trajectory-tracker-rviz-plugins ros-melodic-visualization-msgs 
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install rviz ros-melodic-cartographer-rviz ros-melodic-distance-map-rviz ros-melodic-fkie-potree-rviz-plugin ros-melodic-grid-map-rviz-plugin ros-melodic-rqt-rviz ros-melodic-rviz ros-melodic-rviz-visual-tools ros-melodic-trajectory-tracker-rviz-plugins ros-melodic-visualization-msgs ros-melodic-rtabmap-ros
 
 #Setup networking
 RUN echo "192.168.1.15 roomba2.zurich" >> /etc/hosts; echo "192.168.1.115 development.zurich" >> /etc/hosts;
