@@ -5,7 +5,7 @@
 
   <arg name="rate"  default="5"/>
   <arg name="approx_sync" default="true" /> <!-- true for freenect driver -->
-  <arg name="rgbd_sync" default="false"/>
+  <arg name="rgbd_sync" default="true"/>
 
   <!-- Use same nodelet used by Freenect/OpenNI -->
   <group ns="camera">
