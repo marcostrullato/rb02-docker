@@ -69,18 +69,19 @@ RUN usermod -a -G plugdev root; usermod -a -G video root
 RUN echo "source /kinect_ws/devel/setup.bash" >> /root/.bashrc
 
 #Vision
-RUN cd /src; wget -O /src/opencv-3.4.0.tar.gz https://github.com/opencv/opencv/archive/3.4.0.tar.gz; wget -O /src/opencv_contrib-3.4.0.tar.gz https://github.com/opencv/opencv_contrib/archive/3.4.0.tar.gz; tar xzf opencv-3.4.0.tar.gz; tar xzf opencv_contrib-3.4.0.tar.gz
-RUN cd /src/opencv-3.4.0; mkdir build; cd build; cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX:PATH=/opt/opencv/3.4.0 -D WITH_CUDA=ON -D CUDA_ARCH_PTX="" -D CUDA_ARCH_BIN="5.3,6.2,7.2" -D WITH_CUBLAS=ON -D WITH_LIBV4L=ON -D BUILD_opencv_python3=ON -D BUILD_opencv_python2=ON -D BUILD_opencv_java=OFF -D WITH_GSTREAMER=ON -D WITH_GTK=ON -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_EXAMPLES=OFF -D OPENCV_ENABLE_NONFREE=ON -DCUDA_CUDA_LIBRARY=/usr/local/cuda-10.2/targets/aarch64-linux/lib/stubs/libcuda.so -D OPENCV_EXTRA_MODULES_PATH=/src/opencv_contrib-3.4.0/modules ..; make -j4; make install
+#RUN cd /src; wget -O /src/opencv-3.4.0.tar.gz https://github.com/opencv/opencv/archive/3.4.0.tar.gz; wget -O /src/opencv_contrib-3.4.0.tar.gz https://github.com/opencv/opencv_contrib/archive/3.4.0.tar.gz; tar xzf opencv-3.4.0.tar.gz; tar xzf opencv_contrib-3.4.0.tar.gz
+#RUN cd /src/opencv-3.4.0; mkdir build; cd build; cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX:PATH=/opt/opencv/3.4.0 -D WITH_CUDA=ON -D CUDA_ARCH_PTX="" -D CUDA_ARCH_BIN="5.3,6.2,7.2" -D WITH_CUBLAS=ON -D WITH_LIBV4L=ON -D BUILD_opencv_python3=ON -D BUILD_opencv_python2=ON -D BUILD_opencv_java=OFF -D WITH_GSTREAMER=ON -D WITH_GTK=ON -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_EXAMPLES=OFF -D OPENCV_ENABLE_NONFREE=ON -DCUDA_CUDA_LIBRARY=/usr/local/cuda-10.2/targets/aarch64-linux/lib/stubs/libcuda.so -D OPENCV_EXTRA_MODULES_PATH=/src/opencv_contrib-3.4.0/modules ..; make -j4; make install
 #RUN /bin/bash -c ". /opt/ros/melodic/setup.bash; . /create_ws/devel/setup.bash; . /kinect_ws/devel/setup.bash"; mkdir -p /vision_ws/src; cd /vision_ws/src; git clone https://github.com/marcostrullato/vision_opencv.git; git clone --recursive https://github.com/marcostrullato/darknet_ros.git; cd /vision_ws/src/vision_opencv; git checkout melodic; cd /vision_ws; catkin_make -DCMAKE_BUILD_TYPE=Release
 #RUN echo "source /vision_ws/devel/setup.bash" >> /root/.bashrc
 
 #Startup node
 #RUN mkdir -p /rb02_ws/src; cd /rb02_ws/src; git clone https://github.com/marcostrullato/roomba.git; cd /rb02_ws; /bin/bash -c ". /opt/ros/melodic/setup.bash; . /create_ws/devel/setup.bash; . /kinect_ws/devel/setup.bash; . /vision_ws/devel/setup.bash"; catkin_make
-#RUN echo "source /rb02_ws/devel/setup.bash" >> /root/.bashrc
+RUN mkdir -p /rb02_ws/src; cd /rb02_ws/src; git clone https://github.com/marcostrullato/roomba.git; cd /rb02_ws; /bin/bash -c ". /opt/ros/melodic/setup.bash; . /create_ws/devel/setup.bash; . /kinect_ws/devel/setup.bash;"; catkin_make
+RUN echo "source /rb02_ws/devel/setup.bash" >> /root/.bashrc
 
 #Setup networking
-#RUN echo "192.168.1.15 roomba2.zurich" >> /etc/hosts; echo "192.168.1.115 development.zurich" >> /etc/hosts;
+RUN echo "192.168.1.122 roomba2.zurich" >> /etc/hosts; echo "192.168.1.117 development.zurich" >> /etc/hosts;
 
 #Cleanup
-#RUN rm -fr /src
-#RUN apt-get -y autoremove
+RUN rm -fr /src
+RUN apt-get -y autoremove
